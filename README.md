@@ -1,3 +1,7 @@
+## Parcours francais
+
+Ce depot contient un parcours pedagogique en francais dans docs/fr/ : lecture commentee de Liquidity Book, l AMM a bins discrets de Trader Joe v2, un mecanisme par chapitre, sans aucune installation ni execution du projet.
+
 # [Joe V2: Liquidity Book](https://github.com/traderjoe-xyz/joe-v2)
 
 This repository contains the Liquidity Book contracts, as well as tests and deploy scripts.
