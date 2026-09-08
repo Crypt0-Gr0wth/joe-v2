@@ -1,0 +1,7 @@
+# Chapitre 2 — PriceHelper : le prix constant par bin et le bin step
+
+Chaque bin est identifie par un `id` (uint24) et a un prix fixe calcule par `PriceHelper.getPriceFromId` : `price = base^(id - 2^23)`, ou `base = 1 + binStep / 10000` (`getBase`, `src/libraries/PriceHelper.sol`). Le `binStep`, exprime en points de base et fixe a la creation de la paire, determine l'ecart de prix relatif entre deux bins consecutifs — un `binStep` de 10 signifie que chaque bin est 0,1 % plus cher que le precedent. Le decalage `REAL_ID_SHIFT = 1 << 23` centre l'espace des identifiants sur un bin d'id `2^23`, qui correspond a un prix de 1 (en unite 128.128 point fixe), permettant de representer des prix a la fois tres petits et tres grands avec un seul type `uint24`.
+
+`getIdFromPrice` effectue l'operation inverse en passant par un logarithme base 2 (`price.log2() / base.log2()`), une approche qui exploite le fait que `id - 2^23 = log(price) / log(base)`. Ce systeme de prix geometrique discret est la caracteristique fondatrice du protocole : au lieu d'une courbe de liquidite continue, l'espace des prix est decoupe en une grille finie et previsible de bins, ce qui permet a un fournisseur de liquidite de choisir precisement les bins ou il souhaite fournir de la liquidite plutot que de deposer sur une plage continue comme dans Uniswap v3.
+
+[Chapitre suivant : BinHelper et le calcul des parts de liquidite](03-binhelper.md)
